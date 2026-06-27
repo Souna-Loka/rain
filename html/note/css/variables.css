@@ -1,0 +1,229 @@
+/* ========== CSS 变量 ========== */
+:root {
+  /* 基础 - 暖灰调 */
+  --bg-body: #f4f2ee;
+  --color-text: #404547;
+  --color-text-secondary: #6F7C80;
+  --color-text-muted: #A1AAAB;
+  --color-text-footer: #A1AAAB;
+
+  /* Header - 柔和灰蓝 */
+  --bg-header: linear-gradient(135deg, #6F7C80 0%, #8a9496 100%);
+  --color-header-text: #fff;
+
+  /* 搜索 */
+  --bg-search: rgba(255,255,255,0.92);
+  --color-search-icon: #A1AAAB;
+  --color-search-input: #404547;
+  --color-search-placeholder: #A1AAAB;
+  --color-search-clear: #A1AAAB;
+  --color-search-clear-hover: #6F7C80;
+  --shadow-search: 0 4px 20px rgba(64,69,71,0.08);
+  --shadow-search-focus: 0 4px 28px rgba(64,69,71,0.14);
+
+  /* 导航 */
+  --bg-nav: rgba(255,255,255,0.85);
+  --color-nav: #6F7C80;
+  --bg-nav-btn: #eceae6;
+  --color-nav-btn-active: #fff;
+  --bg-nav-btn-active: #6F7C80;
+  --shadow-nav: 0 2px 12px rgba(64,69,71,0.06);
+
+  /* 卡片 */
+  --color-card-title: #404547;
+  --color-card-desc: #6F7C80;
+  --color-card-bg: rgba(255,255,255,0.80);
+  --color-card-bg-fallback: #ffffff;
+  --color-card-border: rgba(161,170,171,0.25);
+  --color-card-left: #6F7C80;
+  --color-card-meta-bg: rgba(236,234,230,0.7);
+  --color-meta-label: #6F7C80;
+  --color-code-bg: #F0DEBD;
+  --color-code-text: #404547;
+  --shadow-card: 0 8px 32px rgba(64,69,71,0.06);
+  --shadow-card-hover: 0 16px 48px rgba(64,69,71,0.10);
+
+  /* 高亮 - 米黄 */
+  --color-hl-bg: #F0DEBD;
+  --color-hl-text: #404547;
+
+  /* 无结果 */
+  --color-no-results: #A1AAAB;
+
+  /* 返回顶部 */
+  --bg-btt: #6F7C80;
+  --bg-btt-hover: #404547;
+  --shadow-btt: 0 4px 12px rgba(64,69,71,0.18);
+
+  /* 底部 */
+  --bg-footer: #404547;
+  --color-footer-text: #A1AAAB;
+
+  /* 主题切换 */
+  --toggle-bg: rgba(255,255,255,0.12);
+  --toggle-border: rgba(255,255,255,0.20);
+  --toggle-color: #fff;
+  --toggle-hover: rgba(255,255,255,0.25);
+
+  /* 氛围 */
+  --atmosphere-opacity: 0.04;
+  --glow-opacity: 0.10;
+  --backdrop-blur: blur(16px);
+  --transition: 0.3s ease;
+
+  /* 分区标题 */
+  --color-section-title: #404547;
+  --color-section-border: #A1AAAB;
+  --color-accent: #6F7C80;
+
+  /* 日记 */
+  --diary-bg: #FDF6E3;
+  --diary-text: #4A4540;
+  --diary-accent: #8B7E6A;
+  --diary-line: #E8DCC8;
+  --diary-tape: rgba(200, 180, 140, 0.35);
+  --diary-shadow: 0 12px 40px rgba(64,69,71,0.15);
+  --diary-pin: #9E9480;
+
+  /* 隐藏笔记 - 特殊色调 */
+  --hidden-bg: #F0EDE8;
+  --hidden-accent: #8B7355;
+  --hidden-tape: rgba(139, 115, 85, 0.30);
+  --hidden-border: rgba(139, 115, 85, 0.20);
+
+  /* 资料 */
+  --material-profile-bg: #F0EDE8;
+  --material-profile-border: #C8B8A0;
+  --material-notebook-bg: #FFFEF5;
+  --material-notebook-line: #E8E0D0;
+  --material-notebook-accent: #C4705A;
+  --material-newspaper-bg: #E8DCC8;
+  --material-newspaper-border: #B8A888;
+  --material-book-bg: #F0E6D3;
+  --material-book-border: #C8B8A0;
+  --material-artifact-bg: #F5F5F0;
+  --material-artifact-border: #A1AAAB;
+}
+
+[data-theme="dark"] {
+  --bg-body: #2a2e2f;
+  --color-text: #d5d0c8;
+  --color-text-secondary: #A1AAAB;
+  --color-text-muted: #6F7C80;
+  --color-text-footer: #6F7C80;
+
+  --bg-header: linear-gradient(135deg, #404547 0%, #5a6062 100%);
+  --color-header-text: #eceae6;
+
+  --bg-search: rgba(42,46,47,0.92);
+  --color-search-icon: #6F7C80;
+  --color-search-input: #d5d0c8;
+  --color-search-placeholder: #6F7C80;
+  --color-search-clear: #6F7C80;
+  --color-search-clear-hover: #A1AAAB;
+  --shadow-search: 0 4px 20px rgba(0,0,0,0.30);
+  --shadow-search-focus: 0 4px 28px rgba(0,0,0,0.40);
+
+  --bg-nav: rgba(48,52,53,0.88);
+  --color-nav: #A1AAAB;
+  --bg-nav-btn: #3a3e3f;
+  --color-nav-btn-active: #fff;
+  --bg-nav-btn-active: #6F7C80;
+  --shadow-nav: 0 2px 12px rgba(0,0,0,0.20);
+
+  --color-card-title: #eceae6;
+  --color-card-desc: #A1AAAB;
+  --color-card-bg: rgba(64,69,71,0.75);
+  --color-card-bg-fallback: #404547;
+  --color-card-border: rgba(213,208,200,0.08);
+  --color-card-left: #8a9496;
+  --color-card-meta-bg: rgba(58,62,63,0.6);
+  --color-meta-label: #A1AAAB;
+  --color-code-bg: #3a3e3f;
+  --color-code-text: #F0DEBD;
+  --shadow-card: 0 8px 32px rgba(0,0,0,0.25);
+  --shadow-card-hover: 0 16px 48px rgba(0,0,0,0.35);
+
+  --color-hl-bg: #5a5346;
+  --color-hl-text: #F0DEBD;
+
+  --color-no-results: #6F7C80;
+
+  --bg-btt: #6F7C80;
+  --bg-btt-hover: #A1AAAB;
+  --shadow-btt: 0 4px 12px rgba(0,0,0,0.30);
+
+  --bg-footer: #1e2122;
+  --color-footer-text: #6F7C80;
+
+  --toggle-bg: rgba(213,208,200,0.08);
+  --toggle-border: rgba(213,208,200,0.15);
+  --toggle-color: #d5d0c8;
+  --toggle-hover: rgba(213,208,200,0.20);
+
+  --atmosphere-opacity: 0.08;
+  --glow-opacity: 0.06;
+
+  --color-section-title: #d5d0c8;
+  --color-section-border: #6F7C80;
+  --color-accent: #A1AAAB;
+
+  --diary-bg: #3a3834;
+  --diary-text: #d5d0c8;
+  --diary-accent: #A1AAAB;
+  --diary-line: rgba(161,170,171,0.15);
+  --diary-tape: rgba(161,170,171,0.15);
+  --diary-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  --diary-pin: #8a9496;
+
+  --hidden-bg: #2f2d2a;
+  --hidden-accent: #A89878;
+  --hidden-tape: rgba(168, 152, 120, 0.25);
+  --hidden-border: rgba(168, 152, 120, 0.15);
+
+  /* 资料 */
+  --material-profile-bg: #2f2d2a;
+  --material-profile-border: #5a5040;
+  --material-notebook-bg: #2a2a25;
+  --material-notebook-line: rgba(161,170,171,0.15);
+  --material-notebook-accent: #B4604A;
+  --material-newspaper-bg: #2a2520;
+  --material-newspaper-border: #5a5040;
+  --material-book-bg: #2a2520;
+  --material-book-border: #5a5040;
+  --material-artifact-bg: #2a2a2a;
+  --material-artifact-border: #6F7C80;
+}
+
+/* ========== 心情色标 ========== */
+.mood-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.35);
+}
+.mood-dot.mood-happy      { background: #E8C547; }
+.mood-dot.mood-calm       { background: #7BA3C9; }
+.mood-dot.mood-melancholy { background: #7B6B9E; }
+.mood-dot.mood-excited    { background: #C4705A; }
+.mood-dot.mood-peaceful   { background: #6B8F71; }
+.mood-dot.mood-nostalgic  { background: #8B6914; }
+.mood-dot.mood-bittersweet{ background: #B8928A; }
+.mood-dot.mood-mysterious { background: #5A7A8A; }
+.mood-dot.mood-dreamy     { background: #B8A8C8; }
+.mood-dot.mood-neutral    { background: #A8A8A8; }
+
+/* 暗色模式下的心情色 */
+[data-theme="dark"] .mood-dot.mood-happy      { background: #D4B43F; }
+[data-theme="dark"] .mood-dot.mood-calm       { background: #6B93B9; }
+[data-theme="dark"] .mood-dot.mood-melancholy { background: #6B5B8E; }
+[data-theme="dark"] .mood-dot.mood-excited    { background: #B4604A; }
+[data-theme="dark"] .mood-dot.mood-peaceful   { background: #5B7F61; }
+[data-theme="dark"] .mood-dot.mood-nostalgic  { background: #7B5910; }
+[data-theme="dark"] .mood-dot.mood-bittersweet{ background: #A8827A; }
+[data-theme="dark"] .mood-dot.mood-mysterious { background: #4A6A7A; }
+[data-theme="dark"] .mood-dot.mood-dreamy     { background: #A898B8; }
+[data-theme="dark"] .mood-dot.mood-neutral    { background: #888888; }
+

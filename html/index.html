@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>丝绪子的秘密基地</title>
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+    <!-- 4. 多层渐变 -->
+    <div class="bg-gradient"></div>
+    <!-- 3. 粒子 Canvas -->
+    <canvas id="bgParticles"></canvas>
+    <!-- 背景装饰层：浮动光球 -->
+    <div class="bg-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+        <div class="orb orb-5"></div>
+    </div>
+    <!-- 背景装饰层：几何线条 -->
+    <div class="bg-lines">
+        <div class="line line-1"></div>
+        <div class="line line-2"></div>
+        <div class="line line-3"></div>
+        <div class="line line-4"></div>
+    </div>
+    <!-- 2. 跳转过渡 -->
+    <div class="transition-overlay" id="transitionOverlay">
+        <div class="ripple" id="transitionRipple"></div>
+        <div class="ripple-fade"></div>
+    </div>
+
+    <div class="user-bar" id="userBar"></div>
+
+    <div class="main-wrap" id="mainWrap">
+        <div class="left-col">
+            <div class="bot-wrap" id="botWrap">
+                <div class="bot-decor">
+                    <div class="checkers"></div>
+                    <div class="striped-circle"></div>
+                    <div class="frame-rect frame-1"></div>
+                    <div class="frame-rect frame-2"></div>
+                    <div class="frame-rect frame-3"></div>
+                    <div class="block block-1"></div>
+                    <div class="block block-2"></div>
+                    <div class="diag-line diag-1"></div>
+                    <div class="diag-line diag-2"></div>
+                    <div class="pixel p1"></div>
+                    <div class="pixel p2"></div>
+                    <div class="pixel p3"></div>
+                    <div class="pixel p4"></div>
+                    <div class="pixel p5"></div>
+                    <div class="bird bird-1"></div>
+                    <div class="bird bird-2"></div>
+                    <div class="bird bird-3"></div>
+                </div>
+                <img src="assets/bot.png" alt="丝绪子" id="botImg">
+            </div>
+        </div>
+
+        <div class="right-col">
+            <div class="dialogue-wrap">
+                <div class="dialogue-box">
+                    <div class="dialogue-text" id="dialogueText">
+                        <span id="typeText"></span><span class="cursor" id="cursor"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn-group" id="btnGroup"></div>
+
+            <div class="footer-hint" id="footerHint">点击按钮开始探索吧 ~</div>
+        </div>
+    </div>
+
+    <div class="login-modal" id="loginModal">
+        <div class="login-box">
+            <h3 class="login-title">账号登录</h3>
+            <input type="text" id="loginQQ" class="login-input" placeholder="QQ 账号" maxlength="20" autocomplete="off">
+            <input type="password" id="loginPassword" class="login-input" placeholder="密码" autocomplete="off">
+            <div class="login-actions">
+                <button class="btn btn-primary" id="btnLoginSubmit">登 录</button>
+                <button class="btn btn-secondary" id="btnLoginClose">取 消</button>
+            </div>
+            <div class="login-error" id="loginError"></div>
+        </div>
+    </div>
+
+    <script src="common/config.js"></script>
+    <script src="common/auth.js"></script>
+    <script src="common/particles.js"></script>
+    <script src="home.js"></script>
+</body>
+</html>

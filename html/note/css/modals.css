@@ -1,0 +1,699 @@
+/* ========== 日记便签弹窗 ========== */
+.diary-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+.diary-modal.active {
+  display: flex;
+}
+
+.diary-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(64,69,71,0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.diary-modal.active .diary-modal-backdrop {
+  opacity: 1;
+}
+
+.diary-modal-content {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  max-height: 80vh;
+  min-height: 520px;
+  background: var(--diary-bg);
+  border-radius: 4px;
+  box-shadow: var(--diary-shadow);
+  transform: scale(0.85) translateY(20px);
+  opacity: 0;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.diary-modal.active .diary-modal-content {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+/* 便签纸样式覆盖 */
+.diary-modal-content.style-paper-yellow { --diary-bg: #FDF6E3; --diary-line: #E8DCC8; --diary-text: #4A4540; --diary-accent: #8B7E6A; --diary-pin: #9E9480; }
+.diary-modal-content.style-paper-blue   { --diary-bg: #E8F0F8; --diary-line: #C8D8E8; --diary-text: #3A4A5A; --diary-accent: #6A8AA8; --diary-pin: #7BA3C9; }
+.diary-modal-content.style-paper-pink   { --diary-bg: #F8F0F0; --diary-line: #E8D0D0; --diary-text: #5A4A4A; --diary-accent: #A08080; --diary-pin: #C9A0B8; }
+.diary-modal-content.style-paper-green  { --diary-bg: #F0F5F0; --diary-line: #D0E0D0; --diary-text: #3A4A3A; --diary-accent: #6A8A6A; --diary-pin: #6B8F71; }
+.diary-modal-content.style-hidden       { --diary-bg: #E8E4E0; --diary-line: #C8C0B8; --diary-text: #4A4540; --diary-accent: #7A7060; --diary-pin: #5A7A8A; }
+
+/* 暗色模式下的便签纸 */
+[data-theme="dark"] .diary-modal-content.style-paper-yellow { --diary-bg: #3a3834; --diary-line: rgba(161,170,171,0.15); --diary-text: #d5d0c8; --diary-accent: #A1AAAB; --diary-pin: #8a9496; }
+[data-theme="dark"] .diary-modal-content.style-paper-blue   { --diary-bg: #2a343f; --diary-line: rgba(123,163,201,0.15); --diary-text: #d5d0c8; --diary-accent: #8aaeb8; --diary-pin: #6B93B9; }
+[data-theme="dark"] .diary-modal-content.style-paper-pink   { --diary-bg: #3a3434; --diary-line: rgba(201,160,184,0.15); --diary-text: #d5d0c8; --diary-accent: #b8a0a0; --diary-pin: #A890A0; }
+[data-theme="dark"] .diary-modal-content.style-paper-green  { --diary-bg: #2a3a2a; --diary-line: rgba(107,143,113,0.15); --diary-text: #d5d0c8; --diary-accent: #90b090; --diary-pin: #5B7F61; }
+[data-theme="dark"] .diary-modal-content.style-hidden       { --diary-bg: #2f2d2a; --diary-line: rgba(168,152,120,0.15); --diary-text: #d5d0c8; --diary-accent: #A89878; --diary-pin: #4A6A7A; }
+
+/* 便签纸横纹背景 */
+.diary-modal-content::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    transparent,
+    transparent 31px,
+    var(--diary-line) 31px,
+    var(--diary-line) 32px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 胶带装饰 */
+.diary-modal-tape {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  width: 100px;
+  height: 28px;
+  background: var(--diary-tape);
+  border-radius: 2px;
+  z-index: 10;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+/* 关闭按钮 */
+.diary-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0,0,0,0.05);
+  color: var(--diary-accent);
+  font-size: 1.1rem;
+  cursor: pointer;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+}
+.diary-modal-close:hover {
+  background: rgba(0,0,0,0.12);
+  transform: rotate(90deg) scale(1.1);
+}
+.diary-modal-close:active {
+  transform: rotate(90deg) scale(0.95);
+}
+[data-theme="dark"] .diary-modal-close {
+  background: rgba(255,255,255,0.06);
+  color: var(--diary-accent);
+}
+[data-theme="dark"] .diary-modal-close:hover {
+  background: rgba(255,255,255,0.12);
+}
+
+/* 图钉 */
+.diary-modal-pin {
+  position: absolute;
+  top: 8px;
+  right: 48px;
+  width: 28px;
+  height: 28px;
+  color: var(--diary-pin);
+  z-index: 10;
+  transform: rotate(25deg);
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15));
+}
+
+/* 弹窗内心情色标 */
+.diary-modal-mood {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  z-index: 10;
+}
+.diary-modal-mood .mood-dot {
+  width: 12px;
+  height: 12px;
+}
+
+/* 弹窗头部 */
+.diary-modal-header {
+  position: relative;
+  padding: 2rem 1.8rem 0.8rem;
+  z-index: 1;
+}
+.diary-modal-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--diary-text);
+  margin-bottom: 0.5rem;
+  word-break: break-word;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  padding-left: 1.5rem;
+  transition: color 0.3s ease, opacity 0.18s ease;
+}
+.diary-modal-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.85rem;
+  color: var(--diary-accent);
+  padding-left: 1.5rem;
+}
+.diary-modal-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* 弹窗内容 */
+.diary-modal-body {
+  position: relative;
+  padding: 0.6rem 1.8rem 3.5rem;
+  overflow-y: auto;
+  z-index: 1;
+  flex: 1;
+}
+
+/* 弹窗滚动条增强 */
+.diary-modal-body::-webkit-scrollbar,
+.material-notebook-body::-webkit-scrollbar,
+.profile-body::-webkit-scrollbar,
+.material-newspaper-body::-webkit-scrollbar,
+.material-book-body::-webkit-scrollbar,
+.material-artifact-body::-webkit-scrollbar {
+  width: 6px;
+}
+.diary-modal-body::-webkit-scrollbar-track,
+.material-notebook-body::-webkit-scrollbar-track,
+.profile-body::-webkit-scrollbar-track,
+.material-newspaper-body::-webkit-scrollbar-track,
+.material-book-body::-webkit-scrollbar-track,
+.material-artifact-body::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.04);
+  border-radius: 4px;
+}
+.diary-modal-body::-webkit-scrollbar-thumb,
+.material-notebook-body::-webkit-scrollbar-thumb,
+.profile-body::-webkit-scrollbar-thumb,
+.material-newspaper-body::-webkit-scrollbar-thumb,
+.material-book-body::-webkit-scrollbar-thumb,
+.material-artifact-body::-webkit-scrollbar-thumb {
+  background: var(--diary-accent);
+  border-radius: 4px;
+  opacity: 0.5;
+}
+.diary-modal-body::-webkit-scrollbar-thumb:hover,
+.material-notebook-body::-webkit-scrollbar-thumb:hover,
+.profile-body::-webkit-scrollbar-thumb:hover,
+.material-newspaper-body::-webkit-scrollbar-thumb:hover,
+.material-book-body::-webkit-scrollbar-thumb:hover,
+.material-artifact-body::-webkit-scrollbar-thumb:hover {
+  background: var(--diary-pin);
+  opacity: 0.8;
+}
+[data-theme="dark"] .diary-modal-body::-webkit-scrollbar-track,
+[data-theme="dark"] .material-notebook-body::-webkit-scrollbar-track,
+[data-theme="dark"] .profile-body::-webkit-scrollbar-track,
+[data-theme="dark"] .material-newspaper-body::-webkit-scrollbar-track,
+[data-theme="dark"] .material-book-body::-webkit-scrollbar-track,
+[data-theme="dark"] .material-artifact-body::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.06);
+}
+
+/* 笔记本滚动条 */
+.material-notebook-body::-webkit-scrollbar-thumb {
+  background: var(--material-notebook-accent);
+  opacity: 0.4;
+}
+.material-notebook-body::-webkit-scrollbar-thumb:hover {
+  background: var(--material-notebook-accent);
+  opacity: 0.7;
+}
+
+/* 资料弹窗内容区域滚动支持 */
+.diary-modal-content.style-profile {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.profile-body {
+  overflow-y: auto;
+  flex: 1;
+  max-height: 50vh;
+  padding: 1.2rem 1.5rem 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.material-newspaper-body {
+  overflow-y: auto;
+  flex: 1;
+  max-height: 55vh;
+}
+.material-book-body {
+  overflow-y: auto;
+  flex: 1;
+  max-height: 55vh;
+}
+.material-artifact-body {
+  overflow-y: auto;
+  flex: 1;
+  max-height: 55vh;
+}
+
+/* 资料弹窗通用 */
+.material-modal .diary-modal-content {
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#materialInner {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* 日记正文 - 手写童稚体 */
+.diary-modal-text {
+  font-size: 1.05rem;
+  line-height: 2;
+  color: var(--diary-text);
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: 'ZCOOL KuaiLe', 'KaiTi', 'STKaiti', '华文楷体', cursive;
+  transition: color 0.3s ease, opacity 0.18s ease;
+}
+
+/* 打字机光标 */
+.typewriter-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  background: var(--diary-text);
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: cursorBlink 0.7s step-end infinite;
+  opacity: 0.8;
+}
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* 批注区域 */
+.diary-modal-annotations {
+  margin-top: 1.2rem;
+  padding-top: 1rem;
+  border-top: 1px dashed var(--diary-line);
+  position: relative;
+  z-index: 1;
+  transition: opacity 0.18s ease;
+}
+
+.annotation {
+  margin-bottom: 0.8rem;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  position: relative;
+  font-family: 'Ma Shan Zheng', 'KaiTi', 'STKaiti', '华文楷体', cursive;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  transform: rotate(-0.5deg);
+  animation: annotationAppear 0.4s ease both;
+  transition: transform 0.3s ease;
+}
+.annotation:nth-child(even) {
+  transform: rotate(0.5deg);
+  margin-left: 1.5rem;
+}
+.annotation:hover {
+  transform: rotate(0deg) scale(1.02);
+}
+@keyframes annotationAppear {
+  from { opacity: 0; transform: translateY(8px) rotate(-1deg); }
+  to { opacity: 1; transform: translateY(0) rotate(-0.5deg); }
+}
+.annotation:nth-child(even) {
+  animation-name: annotationAppearEven;
+}
+@keyframes annotationAppearEven {
+  from { opacity: 0; transform: translateY(8px) rotate(1deg); }
+  to { opacity: 1; transform: translateY(0) rotate(0.5deg); }
+}
+
+.annotation.ink-blue {
+  background: rgba(123, 163, 201, 0.10);
+  color: #4a6fa5;
+  border-left: 3px solid #7BA3C9;
+}
+.annotation.ink-red {
+  background: rgba(196, 112, 90, 0.10);
+  color: #a05040;
+  border-left: 3px solid #C4705A;
+}
+.annotation.ink-green {
+  background: rgba(107, 143, 113, 0.10);
+  color: #4a7050;
+  border-left: 3px solid #6B8F71;
+}
+.annotation.ink-purple {
+  background: rgba(123, 107, 158, 0.10);
+  color: #6a5a8a;
+  border-left: 3px solid #7B6B9E;
+}
+.annotation.ink-orange {
+  background: rgba(200, 160, 80, 0.10);
+  color: #8a7030;
+  border-left: 3px solid #D4A843;
+}
+
+.annotation-author {
+  font-size: 0.78rem;
+  opacity: 0.65;
+  margin-bottom: 0.25rem;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+.annotation-text {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* 暗色模式批注 */
+[data-theme="dark"] .annotation.ink-blue   { background: rgba(123, 163, 201, 0.08); color: #9ab8d8; border-left-color: #6B93B9; }
+[data-theme="dark"] .annotation.ink-red    { background: rgba(196, 112, 90, 0.08); color: #d8a090; border-left-color: #B4604A; }
+[data-theme="dark"] .annotation.ink-green  { background: rgba(107, 143, 113, 0.08); color: #90b898; border-left-color: #5B7F61; }
+[data-theme="dark"] .annotation.ink-purple { background: rgba(123, 107, 158, 0.08); color: #b0a0c8; border-left-color: #6B5B8E; }
+[data-theme="dark"] .annotation.ink-orange { background: rgba(200, 160, 80, 0.08); color: #c8b080; border-left-color: #C4A040; }
+
+/* ========== 弹窗内翻页导航 ========== */
+.diary-nav-btn {
+  position: absolute;
+  bottom: 14px;
+  top: auto;
+  transform: scale(0.9);
+  width: auto;
+  height: auto;
+  padding: 0.5rem 1.1rem;
+  border: none;
+  background: transparent;
+  color: var(--diary-accent);
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 20px;
+  box-shadow: none;
+  border: 1px solid var(--diary-line);
+  opacity: 0;
+  transition: all 0.25s ease;
+  pointer-events: none;
+}
+.diary-modal.active .diary-nav-btn {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+.diary-nav-btn:hover {
+  background: rgba(0,0,0,0.04);
+  border-color: var(--diary-accent);
+  color: var(--diary-text);
+}
+.diary-nav-btn:active { transform: scale(0.92); }
+
+.diary-nav-prev { left: 18px; }
+.diary-nav-next { right: 18px; }
+
+/* 按钮文字 */
+.diary-nav-prev::after { content: '上一页'; }
+.diary-nav-next::after { content: '下一页'; }
+
+/* 翻页指示器 */
+.diary-nav-indicator {
+  position: absolute;
+  bottom: 52px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 10;
+}
+.diary-nav-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--diary-accent);
+  opacity: 0.3;
+  transition: all 0.25s ease;
+}
+.diary-nav-dot.active {
+  opacity: 1;
+  transform: scale(1.3);
+  background: var(--diary-pin);
+}
+
+/* 禁用状态 */
+.diary-nav-btn.disabled {
+  opacity: 0.25 !important;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+/* ========== 隐藏笔记弹窗（特殊彩蛋） ========== */
+.hidden-note-modal .diary-modal-content {
+  background: var(--hidden-bg);
+  border: 2px solid var(--hidden-border);
+}
+.hidden-note-modal .diary-modal-content::before {
+  background: repeating-linear-gradient(
+    transparent,
+    transparent 31px,
+    var(--hidden-border) 31px,
+    var(--hidden-border) 32px
+  );
+}
+.hidden-pin {
+  color: var(--hidden-accent);
+}
+.hidden-tape {
+  background: var(--hidden-tape);
+  width: 120px;
+}
+.hidden-note-badge {
+  position: absolute;
+  top: 10px;
+  left: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.6rem;
+  background: var(--hidden-accent);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 600;
+  border-radius: 10px;
+  z-index: 10;
+  letter-spacing: 0.5px;
+}
+.hidden-note-text {
+  color: var(--diary-text);
+  font-style: italic;
+}
+
+/* ========== 资料弹窗（档案信封） ========== */
+.diary-modal-content.style-profile {
+  background: #F0EDE8;
+  border: 1px solid #C8B8A0;
+  max-width: 420px;
+  border-radius: 2px;
+  overflow: visible;
+}
+.profile-envelope {
+  position: relative;
+  overflow: hidden;
+}
+.profile-envelope::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(135deg, #8B7355 0%, #A89878 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 70%, 50% 100%, 0 70%);
+}
+.profile-seal {
+  position: absolute;
+  top: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 48px;
+  background: #F0EDE8;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8B7355;
+  font-size: 1.3rem;
+  border: 2px solid #C8B8A0;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.profile-tape {
+  position: absolute;
+  top: -10px;
+  right: 40px;
+  width: 80px;
+  height: 24px;
+  background: rgba(200, 184, 160, 0.4);
+  transform: rotate(3deg);
+  z-index: 10;
+}
+.profile-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+  margin-top: 2.5rem;
+  padding: 0 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+.profile-photo-placeholder {
+  width: 80px;
+  height: 100px;
+  background: rgba(200, 184, 160, 0.2);
+  border: 2px dashed #C8B8A0;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #A89878;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}
+.profile-photo-placeholder i {
+  font-size: 1.5rem;
+  margin-bottom: 0.3rem;
+  opacity: 0.5;
+}
+.profile-info {
+  flex: 1;
+}
+.profile-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #5a4a3a;
+  margin-bottom: 0.5rem;
+}
+.profile-subtitle {
+  font-size: 0.85rem;
+  color: #8B7355;
+  margin-bottom: 0.4rem;
+  font-style: italic;
+}
+.profile-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.profile-tag {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  background: rgba(139, 115, 85, 0.12);
+  color: #7B6345;
+  font-size: 0.8rem;
+  border-radius: 10px;
+  font-weight: 500;
+}
+.profile-body {
+  padding: 1.2rem 1.5rem 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+.profile-section {
+  margin-bottom: 1rem;
+}
+.profile-section:last-child {
+  margin-bottom: 0;
+}
+.profile-label {
+  display: block;
+  font-size: 0.75rem;
+  color: #A89878;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+}
+.profile-text {
+  font-size: 0.95rem;
+  color: #5a4a3a;
+  line-height: 1.6;
+  font-family: 'ZCOOL KuaiLe', 'KaiTi', 'STKaiti', cursive;
+}
+.profile-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #C8B8A0, transparent);
+  margin: 0.8rem 0;
+}
+
+/* 暗色模式档案 */
+[data-theme="dark"] .diary-modal-content.style-profile {
+  background: #2f2d2a;
+  border-color: #5a5040;
+}
+[data-theme="dark"] .profile-envelope::before {
+  background: linear-gradient(135deg, #5a4a3a 0%, #6a5a4a 100%);
+}
+[data-theme="dark"] .profile-seal {
+  background: #2f2d2a;
+  border-color: #5a5040;
+  color: #A89878;
+}
+[data-theme="dark"] .profile-name {
+  color: #d5d0c8;
+}
+[data-theme="dark"] .profile-subtitle {
+  color: #A89878;
+}
+[data-theme="dark"] .profile-tag {
+  background: rgba(168, 152, 120, 0.15);
+  color: #C8B8A0;
+}
+[data-theme="dark"] .profile-text {
+  color: #d5d0c8;
+}
+[data-theme="dark"] .profile-label {
+  color: #A89878;
+}
+[data-theme="dark"] .profile-photo-placeholder {
+  background: rgba(168, 152, 120, 0.1);
+  border-color: #5a5040;
+  color: #A89878;
+}
+

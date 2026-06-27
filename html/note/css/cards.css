@@ -1,0 +1,226 @@
+/* ========== 主内容 ========== */
+.main-content {
+  margin: 0 auto;
+  padding: 1.5rem clamp(1rem, 4vw, 3rem) 3rem;
+  min-height: 40vh;
+}
+.cmd-section { margin-bottom: 2.5rem; }
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--color-section-title);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--color-section-border);
+  transition: color var(--transition), border-color var(--transition);
+}
+.section-title i { color: var(--color-accent); }
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+  gap: 1.2rem;
+}
+
+/* ========== 卡片 ========== */
+.cmd-card {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-card-bg-fallback);
+  border-radius: 14px;
+  padding: 1.2rem 1.2rem 1rem;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-card-border);
+  border-left: 4px solid var(--color-card-left);
+  transition: transform 0.25s ease, box-shadow 0.3s ease, background var(--transition), border-color var(--transition);
+  cursor: default;
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  will-change: transform;
+}
+@supports (backdrop-filter: blur(16px)) or (-webkit-backdrop-filter: blur(16px)) {
+  .cmd-card { background: var(--color-card-bg); }
+}
+.cmd-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+}
+.cmd-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,var(--glow-opacity)), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+.cmd-card:hover::before { transform: translateX(100%); }
+.cmd-card > * { position: relative; z-index: 2; }
+
+.cmd-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-card-title);
+  margin-bottom: 0.3rem;
+  word-break: break-word;
+  transition: color var(--transition);
+}
+.cmd-desc {
+  color: var(--color-card-desc);
+  font-size: 0.9rem;
+  margin-bottom: 0.8rem;
+  line-height: 1.5;
+  transition: color var(--transition);
+}
+.cmd-meta {
+  background: var(--color-card-meta-bg);
+  border-radius: 8px;
+  padding: 0.7rem 0.8rem;
+  font-size: 0.85rem;
+  transition: background var(--transition);
+}
+.meta-row { margin-bottom: 0.5rem; }
+.meta-row:last-child { margin-bottom: 0; }
+.meta-label {
+  color: var(--color-meta-label);
+  font-weight: 600;
+  font-size: 0.75rem;
+  display: block;
+  margin-bottom: 0.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  transition: color var(--transition);
+}
+.code-tag {
+  display: inline-block;
+  background: var(--color-code-bg);
+  padding: 0.1rem 0.5rem;
+  border-radius: 4px;
+  font-family: 'SF Mono', Consolas, monospace;
+  color: var(--color-code-text);
+  font-size: 0.8rem;
+  margin: 0.15rem 0.25rem 0.15rem 0;
+  word-break: break-word;
+  transition: background var(--transition), color var(--transition);
+}
+[data-theme="dark"] .code-tag {
+  border: 1px solid rgba(240, 222, 189, 0.18);
+}
+
+mark.highlight {
+  background: var(--color-hl-bg);
+  padding: 0 2px;
+  border-radius: 2px;
+  font-weight: 600;
+  color: var(--color-hl-text);
+  transition: background var(--transition), color var(--transition);
+}
+
+.no-results {
+  text-align: center;
+  padding: 4rem 1rem;
+  color: var(--color-no-results);
+  font-size: 1.1rem;
+  transition: color var(--transition);
+}
+
+/* ========== 日记卡片 ========== */
+.diary-card {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-card-bg-fallback);
+  border-radius: 14px;
+  padding: 1.2rem 1.2rem 1rem;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-card-border);
+  border-left: 4px solid #B8A88A;
+  transition: transform 0.25s ease, box-shadow 0.3s ease, background var(--transition), border-color var(--transition);
+  cursor: pointer;
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  will-change: transform;
+}
+@supports (backdrop-filter: blur(16px)) or (-webkit-backdrop-filter: blur(16px)) {
+  .diary-card { background: var(--color-card-bg); }
+}
+.diary-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+}
+.diary-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(184,168,138,0.06), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+.diary-card:hover::before { transform: translateX(100%); }
+.diary-card > * { position: relative; z-index: 2; }
+
+/* 多种便签纸色调 */
+.diary-card.style-paper-yellow { border-left-color: #D4A843; }
+.diary-card.style-paper-blue   { border-left-color: #7BA3C9; }
+.diary-card.style-paper-pink   { border-left-color: #C9A0B8; }
+.diary-card.style-paper-green  { border-left-color: #6B8F71; }
+.diary-card.style-hidden       { border-left-color: #5A7A8A; }
+
+.diary-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.3rem;
+}
+.diary-card-mood {
+  display: inline-flex;
+  align-items: center;
+}
+.diary-card-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-card-title);
+  word-break: break-word;
+  transition: color var(--transition);
+  flex: 1;
+}
+.diary-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 0.4rem 0 0.6rem;
+  font-size: 0.82rem;
+  color: var(--color-text-secondary);
+  transition: color var(--transition);
+  padding-left: 1.15rem;
+}
+.diary-card-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.diary-card-meta i {
+  font-size: 0.78rem;
+  opacity: 0.7;
+}
+.diary-card-preview {
+  color: var(--color-card-desc);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  transition: color var(--transition);
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  padding-left: 1.15rem;
+}
+.diary-card-preview .ellipsis {
+  color: var(--color-text-muted);
+}
+

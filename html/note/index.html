@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>丝绪子的便签纸</title>
+    <!-- 预连接与预加载 -->
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- 手写体字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+    <!-- 主题色 -->
+    <meta name="theme-color" content="#6F7C80">
+<base target="_blank">
+</head>
+<body>
+    <!-- 水波纹过渡层 -->
+    <div id="transition-overlay"></div>
+
+    <!-- 雨季彩蛋雨滴容器 -->
+    <div id="rainContainer" class="rain-container"></div>
+
+    <!-- 顶部区域 -->
+    <header class="site-header">
+        <div class="header-inner">
+            <button class="theme-toggle" id="themeToggle" aria-label="切换主题">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+            <h1 id="site-title">丝绪子的便签纸</h1>
+            <p id="site-desc">加载中...</p>
+
+            <div class="search-wrap">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+                <input type="text" id="searchInput" placeholder="搜索指令名称或描述..." autocomplete="off" aria-label="搜索">
+                <button id="clearSearch" class="clear-btn" aria-label="清除搜索">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 分类导航 -->
+    <nav class="category-nav" id="categoryNav" aria-label="指令分类">
+        <div class="cat-list" id="catList"></div>
+        <button id="randomBtn" class="random-btn-nav" title="不知道玩什么？">
+            <i class="fa-solid fa-dice"></i>
+            <span>随机</span>
+        </button>
+    </nav>
+
+    <!-- 指令内容 -->
+    <main class="main-content" id="mainContent">
+        <!-- 动态生成 -->
+    </main>
+
+    <!-- 日记便签弹窗 -->
+    <div id="diaryModal" class="diary-modal">
+        <div class="diary-modal-backdrop"></div>
+        <div class="diary-modal-content">
+            <button class="diary-modal-close" id="diaryModalClose" aria-label="关闭">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <!-- 上一篇按钮 -->
+            <button class="diary-nav-btn diary-nav-prev" id="diaryNavPrev" aria-label="上一篇" title="上一篇">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <!-- 下一篇按钮 -->
+            <button class="diary-nav-btn diary-nav-next" id="diaryNavNext" aria-label="下一篇" title="下一篇">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+            <!-- 翻页指示器 -->
+            <div class="diary-nav-indicator" id="diaryNavIndicator"></div>
+
+            <div class="diary-modal-header">
+                <div class="diary-modal-pin">
+                    <i class="fa-solid fa-thumbtack"></i>
+                </div>
+                <div class="diary-modal-mood" id="diaryModalMood"></div>
+                <h3 class="diary-modal-title" id="diaryModalTitle"></h3>
+                <div class="diary-modal-meta">
+                    <span id="diaryModalDate"><i class="fa-regular fa-calendar"></i> <span></span></span>
+                    <span id="diaryModalWeather"><i class="fa-solid fa-cloud-sun"></i> <span></span></span>
+                </div>
+            </div>
+            <div class="diary-modal-body">
+                <div class="diary-modal-text" id="diaryModalText"></div>
+                <!-- 批注区域 -->
+                <div class="diary-modal-annotations" id="diaryModalAnnotations"></div>
+            </div>
+            <div class="diary-modal-tape"></div>
+        </div>
+    </div>
+
+    <!-- 隐藏笔记弹窗（特殊彩蛋） -->
+    <div id="hiddenNoteModal" class="diary-modal hidden-note-modal">
+        <div class="diary-modal-backdrop"></div>
+        <div class="diary-modal-content">
+            <button class="diary-modal-close" id="hiddenNoteClose" aria-label="关闭">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="diary-modal-header">
+                <div class="diary-modal-pin hidden-pin">
+                    <i class="fa-solid fa-thumbtack"></i>
+                </div>
+                <div class="hidden-note-badge">
+                    <i class="fa-solid fa-key"></i> 隐藏笔记
+                </div>
+                <h3 class="diary-modal-title" id="hiddenNoteTitle"></h3>
+                <div class="diary-modal-meta">
+                    <span id="hiddenNoteDate"><i class="fa-regular fa-calendar"></i> <span></span></span>
+                    <span id="hiddenNoteWeather"><i class="fa-solid fa-cloud-sun"></i> <span></span></span>
+                </div>
+            </div>
+            <div class="diary-modal-body">
+                <div class="diary-modal-text hidden-note-text" id="hiddenNoteText"></div>
+                <div class="diary-modal-annotations" id="hiddenNoteAnnotations"></div>
+            </div>
+            <div class="diary-modal-tape hidden-tape"></div>
+        </div>
+    </div>
+
+    <!-- 资料弹窗 -->
+    <div id="materialModal" class="diary-modal material-modal">
+        <div class="diary-modal-backdrop"></div>
+        <div class="diary-modal-content" id="materialContent">
+            <button class="diary-modal-close" id="materialModalClose" aria-label="关闭">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div id="materialInner"></div>
+        </div>
+    </div>
+
+    <!-- 底部 -->
+    <footer class="site-footer">
+        <div class="contact-bar">
+            <span class="contact-item">Bot QQ：3793780385</span>
+            <span class="contact-sep">|</span>
+            <span class="contact-item"><i class="fa-solid fa-users"></i> 群号：1062014938</span>
+        </div>
+        <p id="footer-text">加载中...</p>
+        <a href="/rain/index.html" class="secret-door" title="雨之境" aria-label="雨之境">
+            <i class="fa-solid fa-droplet"></i>
+        </a>
+    </footer>
+
+    <!-- 返回顶部 -->
+    <button id="backToTop" class="back-to-top" aria-label="返回顶部">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <script src="../common/config.js"></script>
+    <script src="../common/auth.js"></script>
+    <script src="modules/utils.js"></script>
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>落雪查分器 · 授权</title>
+    <link rel="stylesheet" href="search.css">
+</head>
+<body>
+    <div class="rain-bg" id="rainBg"></div>
+    <div class="vignette"></div>
+
+    <div class="container">
+        <div class="card">
+            <div class="brand">落雪查分器</div>
+            <h1>授权成功</h1>
+            <p class="subtitle">请复制以下授权码发送给 Bot 完成绑定</p>
+            <div class="code-wrap">
+                <div class="code" id="code"></div>
+                <button class="copy-btn" id="copyBtn" aria-label="复制授权码">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                </button>
+            </div>
+            <button class="btn" id="copyBtnMain">复制授权码</button>
+            <p class="hint">发送给 Bot 即可绑定</p>
+        </div>
+    </div>
+
+    <script src="search.js"></script>
+</body>
+</html>

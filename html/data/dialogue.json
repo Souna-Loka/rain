@@ -1,0 +1,56 @@
+{
+  "_comment": "对话数据与表情映射接口。每句对话可指定 expression 字段（对应 assets/expressions/ 下的文件名）。无 expression 则使用 defaultExpression。",
+  "defaultExpression": "bot.png",
+  "welcome": [
+    {
+      "text": "欢迎光临~~ 这里是丝绪子的小天地！",
+      "expression": "bot_welcome.png"
+    },
+    {
+      "text": "你好呀~ 今天想聊点什么吗？",
+      "expression": "bot_normal.png"
+    },
+    {
+      "text": "嘿！欢迎来到我的角落~ 🌧️",
+      "expression": "bot_happy.png"
+    }
+  ],
+  "loggedIn": {
+    "text": "要去哪看看呢？",
+    "expression": "bot_think.png"
+  },
+  "interactions": [
+    {
+      "text": "你戳我干嘛！",
+      "expression": "bot_shy.png"
+    },
+    {
+      "text": "好痒呀~ 别闹啦！",
+      "expression": "bot_blush.png"
+    },
+    {
+      "text": "哎呀，我的发型乱了吗？",
+      "expression": "bot_panic.png"
+    },
+    {
+      "text": "嘻嘻，今天心情不错哦~",
+      "expression": "bot_happy.png"
+    },
+    {
+      "text": "要不要再戳一下试试？",
+      "expression": "bot_wink.png"
+    },
+    {
+      "text": "呜... 被发现了！",
+      "expression": "bot_shy.png"
+    },
+    {
+      "text": "丝绪子正在思考人生...",
+      "expression": "bot_think.png"
+    },
+    {
+      "text": "嘿！你是在跟我打招呼吗？",
+      "expression": "bot_surprised.png"
+    }
+  ]
+}

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人信息 - 丝绪子的秘密基地</title>
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+    <!-- 多层渐变 -->
+    <div class="bg-gradient"></div>
+    <!-- 粒子 Canvas -->
+    <canvas id="bgParticles"></canvas>
+    <!-- 背景装饰层：浮动光球 -->
+    <div class="bg-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+        <div class="orb orb-5"></div>
+    </div>
+    <!-- 背景装饰层：几何线条 -->
+    <div class="bg-lines">
+        <div class="line line-1"></div>
+        <div class="line line-2"></div>
+        <div class="line line-3"></div>
+        <div class="line line-4"></div>
+    </div>
+
+    <div class="profile-wrap" id="profileWrap">
+        <!-- 头部 -->
+        <div class="profile-header">
+            <a href="/" class="btn btn-back" id="btnBack">← 返回首页</a>
+            <h1 class="profile-title">个人信息</h1>
+            <div class="profile-spacer"></div>
+        </div>
+
+        <!-- 主要内容区 -->
+        <div class="profile-grid">
+            <!-- 用户卡片 -->
+            <div class="profile-card user-card">
+                <div class="user-avatar">
+                    <div class="avatar-ring"></div>
+                    <span class="avatar-text">我</span>
+                </div>
+                <div class="user-info">
+                    <div class="info-row">
+                        <span class="info-label">昵称</span>
+                        <div class="nickname-wrap" id="nicknameWrap">
+                            <span class="nickname-text" id="nicknameText">--</span>
+                            <button class="btn-edit" id="btnEditNickname" title="编辑昵称">✎</button>
+                        </div>
+                        <div class="nickname-edit" id="nicknameEdit" style="display:none">
+                            <input type="text" id="nicknameInput" class="nickname-input" maxlength="20" placeholder="输入新昵称">
+                            <div class="edit-actions">
+                                <button class="btn btn-save" id="btnSaveNickname">保存</button>
+                                <button class="btn btn-cancel" id="btnCancelNickname">取消</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">QQ</span>
+                        <span class="info-value" id="qqValue">--</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 积分卡片 -->
+            <div class="profile-card points-card">
+                <div class="card-icon">✦</div>
+                <h2 class="card-title">我的积分</h2>
+                <div class="points-number" id="pointsNumber">--</div>
+                <div class="points-label">当前积分</div>
+            </div>
+
+            <!-- 积分详情卡片 -->
+            <div class="profile-card details-card">
+                <h2 class="card-title">积分详情</h2>
+                <div class="details-list" id="detailsList">
+                    <div class="detail-item">
+                        <span class="detail-label">最后签到日期</span>
+                        <span class="detail-value" id="lastSignInDate">--</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">连续签到</span>
+                        <span class="detail-value" id="consecutiveSignIn">--</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">累计签到</span>
+                        <span class="detail-value" id="totalSignIn">--</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">最后点赞日期</span>
+                        <span class="detail-value" id="lastLikeDate">--</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">最后抢夺时间</span>
+                        <span class="detail-value" id="lastGrabTime">--</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">最后转让日期</span>
+                        <span class="detail-value" id="lastTransferDate">--</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 彩蛋进度卡片 -->
+            <div class="profile-card easter-card">
+                <h2 class="card-title">🎮 探索进度</h2>
+                <div class="easter-progress-list" id="easterProgressList">
+                    <div class="easter-loading">加载中...</div>
+                </div>
+            </div>
+
+            <!-- 账号信息卡片 -->
+            <div class="profile-card account-card">
+                <h2 class="card-title">账号信息</h2>
+                <div class="details-list">
+                    <div class="detail-item">
+                        <span class="detail-label">注册时间</span>
+                        <span class="detail-value" id="createdAt">--</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">最后登录</span>
+                        <span class="detail-value" id="lastLoginAt">--</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 退出登录 -->
+        <div class="logout-wrap">
+            <button class="btn btn-danger" id="btnLogout">退出登录</button>
+        </div>
+    </div>
+
+    <!-- 提示消息 -->
+    <div class="toast" id="toast"></div>
+
+    <script src="../common/config.js"></script>
+    <script src="../common/auth.js"></script>
+    <script src="../common/particles.js"></script>
+    <script src="profile.js"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>雨之境 </title>
+    
+    <base target="_blank">
+    <link rel="stylesheet" href="rain.css">
+<base target="_blank">
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div id="timeDisplay">02:47 · 6月14日 凌晨</div>
+    <div id="menuToggle">≡</div>
+    <div id="menu">
+        <h3>氛围 Atmosphere</h3>
+        <div class="menu-row"><div class="menu-label"><span>雨势 Rain Intensity</span><span id="rainVal">50%</span></div><input type="range" id="rainSlider" min="0" max="100" value="50"></div>
+        <div class="menu-row"><div class="menu-label"><span>灯光 Brightness</span><span id="lightVal">50%</span></div><input type="range" id="lightSlider" min="0" max="100" value="50"></div>
+        <div class="divider"></div><h3>天气 Weather</h3>
+        <div class="menu-row"><div class="menu-label"><span>风力 Wind Force</span><span id="windVal">40%</span></div><input type="range" id="windSlider" min="0" max="100" value="40"></div>
+        <button class="toggle-btn" id="windToggle"><span>风 Wind</span><span id="windStatus">Off</span></button>
+        <button class="toggle-btn" id="lightningToggle"><span>雷 Lightning</span><span id="lightningStatus">Off</span></button>
+        <div class="divider"></div><h3>昼夜 Day / Night</h3>
+        <button class="toggle-btn active" id="autoDayNightToggle"><span>自动循环 Auto Cycle</span><span id="autoStatus">On</span></button>
+        <button class="action-btn" id="manualDayNightBtn">切换昼 / 夜 Toggle</button>
+        <div class="divider"></div><h3>导航 Navigation</h3>
+        <a href="/note" class="action-btn" style="text-decoration:none;justify-content:center;">← 返回便签纸</a>
+        <div class="divider"></div><h3>系统 System</h3>
+        <div class="menu-row"><div class="menu-label"><span>画质 Quality</span></div><div class="btn-group"><button class="action-btn quality-btn active" data-q="low">低 Low</button><button class="action-btn quality-btn" data-q="medium">中 Med</button><button class="action-btn quality-btn" data-q="high">高 High</button></div></div>
+        <button class="toggle-btn active" id="timeToggle"><span>显示时间 Time</span><span id="timeStatus">On</span></button>
+        <div class="hint">点击 ≡ 收起菜单 · 滚轮控制景深 · 拖拽物件</div>
+    </div>
+    
+    <script src="rain.js"></script>
+</body>
+</html>
